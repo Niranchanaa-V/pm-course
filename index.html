@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethical Use of AI in the Workplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f172a;
+  --cream: #fafaf8;
+  --gold: #b5893a;
+  --gold-light: #e8c97a;
+  --rust: #c0392b;
+  --slate: #334155;
+  --mid: #64748b;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --green: #166534;
+  --blue: #1e40af;
+  --pass: #15803d;
+  --fail: #b91c1c;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+
+/* NAV */
+nav {
+  background:var(--ink);
+  padding:16px 40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+  border-bottom:2px solid var(--gold);
+}
+nav .brand {
+  color:var(--gold-light);
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  letter-spacing:0.5px;
+}
+nav .nav-pills {
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+nav .pill {
+  background:transparent;
+  border:1px solid rgba(229,200,122,0.3);
+  color:rgba(250,250,248,0.7);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:2px;
+  cursor:pointer;
+  transition:all 0.2s;
+  font-family:'DM Sans',sans-serif;
+}
+nav .pill:hover, nav .pill.active {
+  background:var(--gold);
+  border-color:var(--gold);
+  color:var(--ink);
+}
+
+/* HERO */
+.hero {
+  background:var(--ink);
+  color:var(--cream);
+  padding:80px 40px 60px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(181,137,58,0.15) 0%, transparent 55%),
+    radial-gradient(circle at 85% 75%, rgba(192,57,43,0.08) 0%, transparent 55%);
+}
+.hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(181,137,58,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(181,137,58,0.05) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+.hero-inner {
+  position:relative;
+  z-index:2;
+  max-width:860px;
+  margin:0 auto;
+}
+.hero-badges {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+.badge {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:2px;
+}
+.badge-sdg8 { background:rgba(63,126,68,0.2); border:1px solid rgba(63,126,68,0.5); color:#86efac; }
+.badge-sdg9 { background:rgba(10,151,217,0.2); border:1px solid rgba(10,151,217,0.5); color:#7dd3fc; }
+.badge-eccsr { background:rgba(181,137,58,0.2); border:1px solid rgba(181,137,58,0.5); color:var(--gold-light); }
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,5vw,58px);
+  font-weight:900;
+  line-height:1.15;
+  margin-bottom:20px;
+  color:#ffffff;
+}
+.hero h1 span { color:var(--gold-light); }
+.hero p.sub {
+  font-size:18px;
+  color:rgba(250,250,248,0.7);
+  max-width:620px;
+  margin-bottom:36px;
+  font-weight:300;
+}
+.hero-meta {
+  display:flex;
+  gap:32px;
+  flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,0.1);
+  padding-top:28px;
+}
+.meta-item { display:flex; flex-direction:column; gap:3px; }
+.meta-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); }
+.meta-val { font-size:15px; color:rgba(250,250,248,0.85); font-weight:500; }
+.start-btn {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--gold);
+  color:var(--ink);
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:0.5px;
+  padding:14px 28px;
+  border-radius:2px;
+  border:none;
+  cursor:pointer;
+  margin-top:32px;
+  transition:all 0.2s;
+  font-family:'DM Sans',sans-serif;
+}
+.start-btn:hover { background:var(--gold-light); transform:translateY(-1px); }
+
+/* PROGRESS BAR */
+.progress-wrap {
+  background:var(--ink);
+  padding:16px 40px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.prog-label { color:var(--gold); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap; }
+.prog-bar { flex:1; height:4px; background:rgba(255,255,255,0.1); border-radius:2px; overflow:hidden; }
+.prog-fill { height:100%; background:var(--gold); border-radius:2px; transition:width 0.5s ease; width:0%; }
+.prog-pct { color:rgba(250,250,248,0.6); font-size:12px; font-weight:600; white-space:nowrap; }
+
+/* SECTIONS */
+.section { display:none; padding:60px 40px; max-width:900px; margin:0 auto; }
+.section.active { display:block; }
+
+.section-header {
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:40px;
+  padding-bottom:28px;
+  border-bottom:2px solid var(--border);
+}
+.section-num {
+  background:var(--ink);
+  color:var(--gold-light);
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  font-weight:900;
+  width:60px;
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:2px;
+  flex-shrink:0;
+}
+.section-header-text h2 {
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.section-header-text p { color:var(--mid); font-size:15px; }
+
+/* CARDS */
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:28px 32px;
+  margin-bottom:20px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.04);
+}
+.card h3 {
+  font-family:'Playfair Display',serif;
+  font-size:20px;
+  margin-bottom:12px;
+  color:var(--ink);
+}
+.card p { color:var(--slate); font-size:15px; margin-bottom:10px; }
+.card p:last-child { margin-bottom:0; }
+
+/* PRINCIPLE GRID */
+.principle-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+  gap:16px;
+  margin:24px 0;
+}
+.principle-card {
+  background:var(--ink);
+  color:var(--cream);
+  padding:24px 16px;
+  border-radius:4px;
+  text-align:center;
+}
+.principle-letter {
+  font-family:'Playfair Display',serif;
+  font-size:42px;
+  color:var(--gold-light);
+  line-height:1;
+  margin-bottom:8px;
+}
+.principle-word { font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(250,250,248,0.7); margin-bottom:8px; }
+.principle-desc { font-size:12px; color:rgba(250,250,248,0.5); line-height:1.5; }
+
+/* FACTS TABLE */
+.facts-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:14px; }
+.facts-table th {
+  background:var(--ink);
+  color:var(--gold-light);
+  padding:12px 16px;
+  text-align:left;
+  font-weight:700;
+  letter-spacing:0.5px;
+}
+.facts-table td {
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  color:var(--slate);
+  vertical-align:top;
+}
+.facts-table tr:nth-child(even) td { background:#f8f9fa; }
+.facts-letter { font-family:'Playfair Display',serif; font-size:22px; color:var(--gold); font-weight:900; }
+
+/* CASE STUDY */
+.case-study {
+  background:var(--ink);
+  color:var(--cream);
+  border-radius:4px;
+  overflow:hidden;
+  margin-bottom:24px;
+}
+.case-header {
+  background:rgba(181,137,58,0.15);
+  border-bottom:1px solid rgba(181,137,58,0.3);
+  padding:16px 28px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.case-tag {
+  background:var(--gold);
+  color:var(--ink);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:4px 10px;
+  border-radius:2px;
+}
+.case-header h3 {
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  color:var(--cream);
+}
+.case-body { padding:24px 28px; }
+.case-body p { font-size:14px; color:rgba(250,250,248,0.75); margin-bottom:12px; }
+.case-body p:last-child { margin-bottom:0; }
+.case-source {
+  font-size:12px;
+  color:rgba(250,250,248,0.4);
+  font-style:italic;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:12px;
+  margin-top:12px;
+}
+
+/* SDG BOXES */
+.sdg-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:24px 0; }
+.sdg-box {
+  border-radius:4px;
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+}
+.sdg-box.sdg8 { background:linear-gradient(135deg,#14532d,#166534); border:1px solid #15803d; }
+.sdg-box.sdg9 { background:linear-gradient(135deg,#1e3a5f,#1e40af); border:1px solid #2563eb; }
+.sdg-num { font-family:'Playfair Display',serif; font-size:52px; font-weight:900; opacity:0.2; position:absolute; top:8px; right:16px; color:#fff; }
+.sdg-box h4 { font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:8px; }
+.sdg-box h3 { font-family:'Playfair Display',serif; font-size:18px; color:#fff; margin-bottom:10px; }
+.sdg-box p { font-size:13px; color:rgba(255,255,255,0.7); line-height:1.6; }
+
+/* VIDEO PLACEHOLDERS */
+.video-block {
+  background:var(--ink);
+  border-radius:4px;
+  overflow:hidden;
+  margin-bottom:24px;
+  border:1px solid var(--border);
+}
+.video-thumb {
+  background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  height:200px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  position:relative;
+  cursor:pointer;
+}
+.video-thumb::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(181,137,58,0.1) 0%, transparent 70%);
+}
+.play-btn {
+  width:60px;
+  height:60px;
+  background:var(--gold);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  z-index:1;
+  transition:transform 0.2s;
+}
+.play-btn:hover { transform:scale(1.1); }
+.play-btn::after {
+  content:'';
+  border-left:20px solid var(--ink);
+  border-top:12px solid transparent;
+  border-bottom:12px solid transparent;
+  margin-left:4px;
+}
+.video-placeholder-text {
+  color:rgba(250,250,248,0.4);
+  font-size:12px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  position:relative;
+  z-index:1;
+}
+.video-info { padding:18px 22px; }
+.video-info h4 { font-family:'Playfair Display',serif; font-size:17px; color:var(--cream); margin-bottom:6px; }
+.video-info p { font-size:13px; color:rgba(250,250,248,0.5); }
+.video-duration {
+  display:inline-block;
+  background:rgba(181,137,58,0.2);
+  color:var(--gold-light);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:3px 8px;
+  border-radius:2px;
+  margin-top:8px;
+}
+
+/* ECCSR TABLE */
+.eccsr-table { width:100%; border-collapse:collapse; margin:24px 0; }
+.eccsr-table th {
+  background:var(--ink);
+  color:var(--gold-light);
+  padding:12px 16px;
+  text-align:left;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.eccsr-table td {
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+  color:var(--slate);
+  vertical-align:top;
+}
+.eccsr-stage {
+  font-weight:800;
+  font-size:13px;
+  color:var(--gold);
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+}
+
+/* REFLECTION */
+.reflection-box {
+  background:linear-gradient(135deg, #0f172a, #1e293b);
+  border:1px solid rgba(181,137,58,0.3);
+  border-radius:4px;
+  padding:32px;
+  margin:24px 0;
+}
+.reflection-box h3 {
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  color:var(--gold-light);
+  margin-bottom:20px;
+}
+.reflection-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.reflection-item {
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:4px;
+  padding:20px;
+}
+.reflection-q { font-size:16px; font-weight:700; color:var(--gold); margin-bottom:8px; }
+.reflection-prompt { font-size:13px; color:rgba(250,250,248,0.6); line-height:1.6; }
+textarea.reflect-input {
+  width:100%;
+  margin-top:10px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--cream);
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  padding:10px;
+  border-radius:2px;
+  resize:vertical;
+  min-height:80px;
+}
+textarea.reflect-input:focus { outline:none; border-color:var(--gold); }
+
+/* QUIZ */
+#section-quiz .quiz-header {
+  background:var(--ink);
+  color:var(--cream);
+  padding:24px 28px;
+  border-radius:4px;
+  margin-bottom:28px;
+}
+#section-quiz .quiz-header h3 { font-family:'Playfair Display',serif; font-size:22px; margin-bottom:8px; color:var(--gold-light); }
+#section-quiz .quiz-header p { font-size:14px; color:rgba(250,250,248,0.6); }
+.q-block {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:24px 28px;
+  margin-bottom:16px;
+}
+.q-text {
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:16px;
+  line-height:1.6;
+}
+.q-lo {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+.option-label {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:10px 14px;
+  border:1px solid var(--border);
+  border-radius:3px;
+  margin-bottom:8px;
+  cursor:pointer;
+  transition:all 0.15s;
+  font-size:14px;
+  color:var(--slate);
+}
+.option-label:hover { background:#f8fafc; border-color:var(--gold); }
+.option-label input { margin-top:3px; accent-color:var(--gold); }
+.quiz-submit {
+  background:var(--ink);
+  color:var(--gold-light);
+  border:2px solid var(--gold);
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  padding:14px 36px;
+  border-radius:2px;
+  cursor:pointer;
+  margin-top:12px;
+  transition:all 0.2s;
+}
+.quiz-submit:hover { background:var(--gold); color:var(--ink); }
+#quiz-result {
+  display:none;
+  padding:32px;
+  border-radius:4px;
+  text-align:center;
+  margin-top:24px;
+}
+#quiz-result.pass { background:linear-gradient(135deg,#14532d,#166534); border:2px solid #15803d; }
+#quiz-result.fail { background:linear-gradient(135deg,#450a0a,#7f1d1d); border:2px solid #b91c1c; }
+#quiz-result h3 { font-family:'Playfair Display',serif; font-size:28px; color:#fff; margin-bottom:8px; }
+#quiz-result p { color:rgba(255,255,255,0.75); font-size:15px; margin-bottom:16px; }
+.result-score { font-size:52px; font-weight:900; font-family:'Playfair Display',serif; }
+.result-score.pass-score { color:#86efac; }
+.result-score.fail-score { color:#fca5a5; }
+.cert-btn {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
+  color:#14532d;
+  font-weight:800;
+  font-size:13px;
+  letter-spacing:0.5px;
+  padding:12px 24px;
+  border-radius:2px;
+  border:none;
+  cursor:pointer;
+  margin-top:16px;
+  font-family:'DM Sans',sans-serif;
+}
+
+/* REFERENCES */
+.ref-list { list-style:none; }
+.ref-list li {
+  font-size:13px;
+  color:var(--slate);
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+  line-height:1.7;
+}
+.ref-list li:last-child { border-bottom:none; }
+
+/* NAV BUTTONS */
+.nav-btns {
+  display:flex;
+  gap:12px;
+  margin-top:40px;
+  padding-top:24px;
+  border-top:2px solid var(--border);
+}
+.btn-prev, .btn-next {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 24px;
+  border-radius:2px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border:none;
+  transition:all 0.2s;
+}
+.btn-prev { background:var(--cream); color:var(--ink); border:1px solid var(--border); }
+.btn-prev:hover { background:var(--border); }
+.btn-next { background:var(--ink); color:var(--gold-light); border:1px solid var(--ink); }
+.btn-next:hover { background:var(--slate); }
+
+/* HIGHLIGHT BOX */
+.highlight {
+  background:linear-gradient(135deg,rgba(181,137,58,0.08),rgba(181,137,58,0.03));
+  border-left:4px solid var(--gold);
+  padding:18px 22px;
+  margin:20px 0;
+  border-radius:0 4px 4px 0;
+}
+.highlight p { font-size:14px; color:var(--slate); }
+.highlight strong { color:var(--ink); }
+
+/* LO LIST */
+.lo-list { list-style:none; margin:16px 0; }
+.lo-list li {
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+  color:var(--slate);
+}
+.lo-list li:last-child { border-bottom:none; }
+.lo-tag {
+  background:var(--ink);
+  color:var(--gold-light);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1px;
+  padding:3px 8px;
+  border-radius:2px;
+  white-space:nowrap;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.lo-bloom {
+  background:rgba(181,137,58,0.1);
+  color:var(--gold);
+  font-size:10px;
+  font-weight:700;
+  padding:3px 8px;
+  border-radius:2px;
+  white-space:nowrap;
+  flex-shrink:0;
+  margin-top:2px;
+}
+
+@media(max-width:768px) {
+  nav { padding:12px 20px; }
+  nav .nav-pills { display:none; }
+  .hero { padding:50px 20px 40px; }
+  .section { padding:40px 20px; }
+  .sdg-row { grid-template-columns:1fr; }
+  .reflection-grid { grid-template-columns:1fr; }
+  .principle-grid { grid-template-columns:repeat(2,1fr); }
+  .progress-wrap { padding:12px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="brand">Ethical AI · Corporate Learning</div>
+  <div class="nav-pills">
+    <button class="pill active" onclick="goTo('hero')">Overview</button>
+    <button class="pill" onclick="goTo('section-1')">01 Foundations</button>
+    <button class="pill" onclick="goTo('section-2')">02 Real-World</button>
+    <button class="pill" onclick="goTo('section-3')">03 FACTS</button>
+    <button class="pill" onclick="goTo('section-4')">04 Governance</button>
+    <button class="pill" onclick="goTo('section-5')">05 Reflect</button>
+    <button class="pill" onclick="goTo('section-quiz')">Quiz</button>
+  </div>
+</nav>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <span class="prog-label">Progress</span>
+  <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+  <span class="prog-pct" id="progPct">0%</span>
+</div>
+
+<!-- HERO -->
+<div id="hero" class="section active" style="max-width:100%;padding:0;">
+  <div class="hero">
+    <div class="hero-texture"></div>
+    <div class="hero-inner">
+      <div class="hero-badges">
+        <span class="badge badge-sdg8">🟢 SDG 8 · Decent Work</span>
+        <span class="badge badge-sdg9">🔵 SDG 9 · Innovation</span>
+        <span class="badge badge-eccsr">⭐ ECCSR Framework</span>
+      </div>
+      <h1>Ethical Use of <span>AI</span><br>in the Workplace</h1>
+      <p class="sub">A corporate learning module for professionals navigating AI's growing role in hiring, decision-making, and organisational life.</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">Duration</span>
+          <span class="meta-val">30–60 minutes</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Modules</span>
+          <span class="meta-val">5 + Quiz</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Pass Mark</span>
+          <span class="meta-val">70%</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Level</span>
+          <span class="meta-val">Intermediate</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Award</span>
+          <span class="meta-val">Certificate on Pass</span>
+        </div>
+      </div>
+      <button class="start-btn" onclick="goTo('section-1')">Begin Course →</button>
+    </div>
+  </div>
+
+  <!-- LEARNING OUTCOMES ON HERO PAGE -->
+  <div style="max-width:900px;margin:0 auto;padding:60px 40px;">
+    <div class="section-header" style="margin-bottom:32px;">
+      <div class="section-num" style="font-size:16px;font-family:'DM Sans',sans-serif;letter-spacing:1px;font-weight:700;">LOs</div>
+      <div class="section-header-text">
+        <h2>Learning Outcomes</h2>
+        <p>By the end of this course, you will be able to:</p>
+      </div>
+    </div>
+    <ul class="lo-list">
+      <li><span class="lo-tag">LO1</span><span class="lo-bloom">Knowledge</span>Explain the five core AI ethics principles: Fairness, Transparency, Accountability, Privacy, and Non-maleficence (Floridi et al., 2018)</li>
+      <li><span class="lo-tag">LO2</span><span class="lo-bloom">Comprehension</span>Identify real-world examples of ethical and unethical AI deployment across industries</li>
+      <li><span class="lo-tag">LO3</span><span class="lo-bloom">Application</span>Apply the FACTS framework to evaluate an AI deployment scenario in a workplace context</li>
+      <li><span class="lo-tag">LO4</span><span class="lo-bloom">Analysis</span>Evaluate AI governance practices against the EU AI Act (2024) and IEEE Ethically Aligned Design (2019) guidelines</li>
+      <li><span class="lo-tag">LO5</span><span class="lo-bloom">Synthesis</span>Propose policy recommendations to reduce algorithmic bias in an organisational context</li>
+      <li><span class="lo-tag">LO6</span><span class="lo-bloom">Evaluation</span>Reflect on your own professional responsibility when using or managing AI tools</li>
+    </ul>
+
+    <div class="sdg-row" style="margin-top:40px;">
+      <div class="sdg-box sdg8">
+        <div class="sdg-num">8</div>
+        <h4>UN SDG</h4>
+        <h3>Decent Work &amp; Economic Growth</h3>
+        <p>AI must not displace workers without protection or perpetuate discriminatory hiring. This course addresses how AI intersects with labour rights and fair employment.</p>
+      </div>
+      <div class="sdg-box sdg9">
+        <div class="sdg-num">9</div>
+        <h4>UN SDG</h4>
+        <h3>Industry, Innovation &amp; Infrastructure</h3>
+        <p>Responsible AI innovation requires governance infrastructure. This course examines how organisations build accountability into AI systems before harm occurs.</p>
+      </div>
+    </div>
+
+    <button class="start-btn" onclick="goTo('section-1')" style="margin-top:20px;">Start Module 1 →</button>
+  </div>
+</div>
+
+<!-- MODULE 1: FOUNDATIONS -->
+<div id="section-1" class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-header-text">
+      <h2>Foundations of AI Ethics</h2>
+      <p>Watch the opening video. Understand the five core principles. Ask yourself: was this fair?</p>
+    </div>
+  </div>
+
+  <!-- VIDEO 1 -->
+  <div class="video-block">
+    <div class="video-thumb">
+      <div class="play-btn"></div>
+      <span class="video-placeholder-text">Upload your team's Video 1 here (MP4, 1080×720)</span>
+    </div>
+    <div class="video-info">
+      <h4>The Algorithm Decided</h4>
+      <p>A dramatised scenario: an AI hiring tool rejects a qualified candidate. No explanation is given. Watch and ask yourself — was this fair?</p>
+      <span class="video-duration">≈ 4 minutes</span>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <p><strong>Discussion prompt:</strong> You just watched an AI system reject a candidate. No human reviewed the file. No reason was given. Think about who is affected, who is responsible, and what should have happened differently. Keep these questions in mind as you work through the five principles below.</p>
+  </div>
+
+  <div class="card">
+    <h3>Why AI Ethics Matters at Work</h3>
+    <p>AI is no longer confined to tech companies. It is being used in hiring, performance reviews, credit decisions, healthcare triage, and customer service across every industry. The question is not whether you will encounter AI-driven decisions at work — it is whether those decisions will be fair, explainable, and accountable.</p>
+    <p>Floridi et al. (2018) established five foundational principles for ethical AI that have since been adopted in national AI strategies, the EU AI Act (2024), and the IEEE's Ethically Aligned Design framework (2019). These five principles form the backbone of this course.</p>
+  </div>
+
+  <div class="principle-grid">
+    <div class="principle-card">
+      <div class="principle-letter">F</div>
+      <div class="principle-word">Fairness</div>
+      <div class="principle-desc">AI must treat people equitably. It must not discriminate on the basis of protected characteristics.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-letter">T</div>
+      <div class="principle-word">Transparency</div>
+      <div class="principle-desc">People affected by AI decisions have the right to understand how those decisions were made.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-letter">A</div>
+      <div class="principle-word">Accountability</div>
+      <div class="principle-desc">A human must always be identifiable as responsible when AI causes harm.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-letter">P</div>
+      <div class="principle-word">Privacy</div>
+      <div class="principle-desc">Data collection must be proportionate, consented, and limited to what is necessary.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-letter">N</div>
+      <div class="principle-word">Non-maleficence</div>
+      <div class="principle-desc">AI systems must be designed and deployed so they do not cause harm to individuals or groups.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The ECCSR Framework in This Course</h3>
+    <table class="eccsr-table">
+      <thead><tr><th>Stage</th><th>Module</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><span class="eccsr-stage">Engage</span></td><td>Module 1</td><td>Opening video provokes an ethical question. No answer given yet.</td></tr>
+        <tr><td><span class="eccsr-stage">Connect</span></td><td>Module 2</td><td>Four industry snapshots connect the principles to real organisational contexts.</td></tr>
+        <tr><td><span class="eccsr-stage">Challenge</span></td><td>Modules 3 &amp; 4</td><td>FACTS framework and EU AI Act applied to two real case studies.</td></tr>
+        <tr><td><span class="eccsr-stage">Share</span></td><td>Module 5</td><td>Forum discussion prompt. 150–200 word post and peer reply.</td></tr>
+        <tr><td><span class="eccsr-stage">Reflect</span></td><td>Module 5</td><td>What, So What, Now What reflection model (Borton, 1970).</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--mid);">Source: Houghton, J. (2022). <em>Project Management Made Easy: The ECCSR Approach.</em></p>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-next" onclick="goTo('section-2')">Module 2: Real-World Cases →</button>
+  </div>
+</div>
+
+<!-- MODULE 2: REAL WORLD -->
+<div id="section-2" class="section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-header-text">
+      <h2>AI in the Real World</h2>
+      <p>Four industry contexts. Two case studies that changed how organisations think about algorithmic accountability.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Where AI Is Used in Your Organisation Right Now</h3>
+    <p>AI is not a future technology. The following four industry snapshots illustrate how AI-driven decisions are already shaping people's working lives, career prospects, and access to services. As you read each one, ask yourself: which of the five principles from Module 1 are at risk?</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+    <div class="card" style="margin-bottom:0;">
+      <h3>🏢 HR &amp; Hiring</h3>
+      <p>CV screening tools, interview scoring algorithms, and workforce planning systems filter candidates before any human reviews their file. Over 70% of large employers use some form of automated screening (IBM, 2024).</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>🏥 Healthcare</h3>
+      <p>Risk stratification tools determine which patients receive follow-up care. Diagnostic support systems flag conditions from imaging data. Errors here can cost lives.</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>💼 Consulting &amp; Finance</h3>
+      <p>Credit scoring, fraud detection, and client recommendation engines run on models that may embed historical biases. PwC Ireland's own research (2025) found that only 24% of consulting professionals said their AI governance guidelines were very clear.</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>📊 Performance Management</h3>
+      <p>AI tools tracking productivity, monitoring communications, and scoring output raise serious questions about surveillance, consent, and the right to explanation.</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin:32px 0 16px;">Case Study 1: Amazon's Hiring AI</h3>
+  <div class="case-study">
+    <div class="case-header">
+      <span class="case-tag">Case Study</span>
+      <h3>Amazon Recruiting AI — Retired 2018</h3>
+    </div>
+    <div class="case-body">
+      <p>Amazon built an AI recruiting tool trained on 10 years of CVs submitted to the company — the vast majority of which came from men, reflecting the historical gender imbalance in tech. The model learned that male-pattern CVs were associated with successful hires. It consequently penalised CVs that contained the word "women" and downgraded graduates from all-women's colleges.</p>
+      <p>No one programmed the bias in. The model simply learned from biased historical data and reproduced that bias at scale, invisibly and automatically, across every application it processed.</p>
+      <p>Amazon tried to correct it. When it became clear the corrections were insufficient, the tool was retired entirely. Thousands of candidates had already been affected.</p>
+      <p><strong>Which principles were violated?</strong> Fairness (discriminatory outcomes), Transparency (candidates received no explanation), Accountability (who was responsible was never publicly confirmed), Non-maleficence (clear harm to applicants).</p>
+      <div class="case-source">Source: Dastin, J. (2018). Amazon scraps secret AI recruiting tool that showed bias against women. Reuters. https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin:32px 0 16px;">Case Study 2: Healthcare Risk Algorithm</h3>
+  <div class="case-study">
+    <div class="case-header">
+      <span class="case-tag">Case Study</span>
+      <h3>US Healthcare Algorithm — Millions Affected</h3>
+    </div>
+    <div class="case-body">
+      <p>A widely used healthcare risk algorithm, deployed across hundreds of US hospitals, used historical healthcare <em>spending</em> as a proxy for health need. The logic seemed reasonable: sicker patients cost more to treat, so spending predicts future need.</p>
+      <p>The flaw: Black patients had systematically lower historical access to healthcare, meaning they had spent less, not because they were healthier, but because they had been denied or priced out of care. The algorithm read lower spending as lower need. At equivalent levels of health status, Black patients were rated as needing significantly less care than white patients.</p>
+      <p>Obermeyer et al. (2019) found that this reduced the share of Black patients identified for extra care by more than half. The algorithm did not contain racial data — it did not need to. The proxy variable did the work instead.</p>
+      <p><strong>Which principles were violated?</strong> Fairness (racially disparate outcomes), Transparency (neither patients nor clinicians understood the bias), Non-maleficence (measurable harm to patient health).</p>
+      <div class="case-source">Source: Obermeyer, Z., Powers, B., Vogeli, C. &amp; Mullainathan, S. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. Science, 366(6464), 447–453. https://doi.org/10.1126/science.aax2342</div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo('section-1')">← Module 1</button>
+    <button class="btn-next" onclick="goTo('section-3')">Module 3: FACTS Framework →</button>
+  </div>
+</div>
+
+<!-- MODULE 3: FACTS -->
+<div id="section-3" class="section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-header-text">
+      <h2>The FACTS Framework</h2>
+      <p>A practical decision-making tool for evaluating AI deployments in your own organisation.</p>
+    </div>
+  </div>
+
+  <!-- VIDEO 2 -->
+  <div class="video-block">
+    <div class="video-thumb">
+      <div class="play-btn"></div>
+      <span class="video-placeholder-text">Upload your team's Video 2 here (MP4, 1080×720)</span>
+    </div>
+    <div class="video-info">
+      <h4>Thinking Like a Consultant: Applying FACTS</h4>
+      <p>Your team works through Case Study 1 using the FACTS framework in a simulated consulting meeting. Watch how each letter surfaces a different dimension of the ethical problem.</p>
+      <span class="video-duration">≈ 4–5 minutes</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why a Framework?</h3>
+    <p>Ethics in practice is not about having good intentions. It is about having a structured process that forces you to ask the right questions <em>before</em> a system goes live, not after harm has occurred. The FACTS framework gives you that structure. It is designed to be used in a consulting or managerial context, where you have to make a recommendation, not just an observation.</p>
+    <p>Apply FACTS to any AI tool your organisation is considering deploying, procuring, or continuing to use.</p>
+  </div>
+
+  <table class="facts-table">
+    <thead>
+      <tr><th>Letter</th><th>Principle</th><th>The Question It Asks</th><th>Why It Matters</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="facts-letter">F</span></td>
+        <td><strong>Fairness</strong></td>
+        <td>Who is affected? Are the impacts equitable across groups?</td>
+        <td>Algorithms trained on historical data reproduce historical inequalities unless explicitly corrected.</td>
+      </tr>
+      <tr>
+        <td><span class="facts-letter">A</span></td>
+        <td><strong>Accountability</strong></td>
+        <td>Who is responsible if this system causes harm?</td>
+        <td>Without clear accountability chains, harm goes unaddressed. The EU AI Act (2024) now mandates this for high-risk systems.</td>
+      </tr>
+      <tr>
+        <td><span class="facts-letter">C</span></td>
+        <td><strong>Confidentiality</strong></td>
+        <td>Is data collection proportionate, consented, and limited?</td>
+        <td>GDPR and the AI Act require lawful processing. Client data in consulting contexts is especially sensitive (PwC Ireland, 2025).</td>
+      </tr>
+      <tr>
+        <td><span class="facts-letter">T</span></td>
+        <td><strong>Transparency</strong></td>
+        <td>Can the system explain its decisions in plain language?</td>
+        <td>If a person cannot understand why a decision was made about them, they cannot meaningfully challenge it.</td>
+      </tr>
+      <tr>
+        <td><span class="facts-letter">S</span></td>
+        <td><strong>Safety</strong></td>
+        <td>What harm could this cause? What safeguards exist?</td>
+        <td>Safety failures in AI systems can be invisible at scale until harm has already been widespread. Pre-deployment safety review is not optional.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight">
+    <p><strong>Practice exercise:</strong> Take Case Study 1 (Amazon Recruiting AI) and apply each FACTS letter. Write one sentence for each: what was the failure? What should have been done? You will use this skill in the quiz.</p>
+  </div>
+
+  <div class="card">
+    <h3>FACTS Applied to the Amazon Case</h3>
+    <p><strong>F — Fairness:</strong> The model penalised CVs containing "women" and downgraded graduates of all-women's colleges. Women were systematically disadvantaged relative to men with equivalent qualifications. The training data encoded a historical gender imbalance that the model reproduced and amplified.</p>
+    <p><strong>A — Accountability:</strong> Amazon's internal team built and owned the tool. When bias was identified, they attempted correction. Accountability was partially present, but the firm's response — quiet retirement of the tool — meant no public accountability chain was established for the candidates already affected.</p>
+    <p><strong>C — Confidentiality:</strong> Applicant CV data was used to train a model without applicants' knowledge or meaningful consent. The data subjects had no visibility into how their information was being used beyond the original application.</p>
+    <p><strong>T — Transparency:</strong> Rejected candidates received no explanation. They had no way to know an algorithm had processed their file, let alone challenge its output. This directly violates the right to explanation now codified in the EU AI Act for high-risk systems.</p>
+    <p><strong>S — Safety:</strong> No pre-deployment bias audit was conducted that would have caught the gender disparity. The harm — discriminatory rejection of qualified women — was only identified through internal review, not through a systematic safety process.</p>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo('section-2')">← Module 2</button>
+    <button class="btn-next" onclick="goTo('section-4')">Module 4: Governance →</button>
+  </div>
+</div>
+
+<!-- MODULE 4: GOVERNANCE -->
+<div id="section-4" class="section">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-header-text">
+      <h2>AI Governance &amp; Regulation</h2>
+      <p>The EU AI Act, IEEE standards, and what responsible AI governance actually looks like in practice.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why Governance Cannot Be an Afterthought</h3>
+    <p>The two case studies in Module 2 share a common failure: governance was reactive, not proactive. Both systems caused harm before the governance response arrived. The EU AI Act (2024) is designed to change this by making pre-deployment accountability a legal requirement for high-risk AI applications.</p>
+    <p>For professionals working in organisations that build, procure, or use AI tools, understanding the regulatory landscape is now a baseline professional competency — not a specialist concern. PwC Ireland's own survey data (2025) found that only 24% of consulting professionals described their organisation's AI governance guidelines as very clear, and over a third actively disputed the adequacy of their current frameworks.</p>
+  </div>
+
+  <div class="card">
+    <h3>The EU AI Act (Regulation EU 2024/1689)</h3>
+    <p>The EU AI Act establishes a risk-tiered regulatory framework. AI systems are classified by their potential to cause harm:</p>
+    <table class="facts-table" style="margin-top:16px;">
+      <thead><tr><th>Risk Level</th><th>Examples</th><th>Requirements</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Unacceptable risk</strong></td><td>Social scoring, real-time facial recognition in public spaces</td><td>Prohibited entirely</td></tr>
+        <tr><td><strong>High risk</strong></td><td>Hiring tools, credit scoring, healthcare, education</td><td>Mandatory human oversight, transparency, bias audits, accountability documentation</td></tr>
+        <tr><td><strong>Limited risk</strong></td><td>Chatbots, customer service AI</td><td>Disclosure that user is interacting with AI</td></tr>
+        <tr><td><strong>Minimal risk</strong></td><td>Spam filters, recommendation engines</td><td>No specific requirements</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--mid);margin-top:12px;">Source: European Parliament. (2024). Regulation (EU) 2024/1689 on Artificial Intelligence (AI Act). Official Journal of the European Union.</p>
+  </div>
+
+  <div class="card">
+    <h3>The IEEE Ethically Aligned Design Framework</h3>
+    <p>The IEEE (2019) framework provides technical standards that complement the EU AI Act's legal requirements. Its core principles include: human rights, wellbeing, data agency, effectiveness, transparency, accountability, awareness of misuse, and competence. For organisations designing or deploying AI, IEEE standards provide the technical architecture that translates ethical intent into system design.</p>
+    <p style="font-size:13px;color:var(--mid);margin-top:8px;">Source: IEEE. (2019). Ethically Aligned Design (1st ed.). IEEE Standards Association.</p>
+  </div>
+
+  <div class="card">
+    <h3>What Good Governance Looks Like</h3>
+    <p>Jobin et al. (2019) analysed 84 national and international AI ethics guidelines and found that despite geographic and cultural differences, convergence exists on five themes: transparency, justice and fairness, non-maleficence, responsibility, and privacy — precisely the principles in Floridi et al. (2018) this course is built on.</p>
+    <p>In practice, organisations that govern AI responsibly do four things consistently: they conduct bias audits before deployment, they assign named accountability for AI systems, they build explainability into the system rather than retrofitting it, and they create accessible mechanisms for affected individuals to challenge AI decisions.</p>
+    <p style="font-size:13px;color:var(--mid);margin-top:8px;">Source: Jobin, A., Ienca, M. &amp; Vayena, E. (2019). The global landscape of AI ethics guidelines. Nature Machine Intelligence, 1(9), 389–399.</p>
+  </div>
+
+  <div class="highlight">
+    <p><strong>For Irish organisations:</strong> Ireland's General Scheme of the Regulation of Artificial Intelligence Bill 2026 implements the EU AI Act domestically. The AI Office of Ireland must be operational by 1 August 2026. Penalties are scaled to worldwide turnover at a level comparable to GDPR exposure. Compliance is not optional — and consulting firms advising clients on AI adoption now have a direct commercial responsibility to demonstrate that their own AI-enabled delivery is governed to this standard.</p>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo('section-3')">← Module 3</button>
+    <button class="btn-next" onclick="goTo('section-5')">Module 5: Reflect →</button>
+  </div>
+</div>
+
+<!-- MODULE 5: REFLECT -->
+<div id="section-5" class="section">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-header-text">
+      <h2>Reflection &amp; Professional Responsibility</h2>
+      <p>Synthesise what you have learned. Connect it to your own work. Commit to a next step.</p>
+    </div>
+  </div>
+
+  <!-- VIDEO 3 -->
+  <div class="video-block">
+    <div class="video-thumb">
+      <div class="play-btn"></div>
+      <span class="video-placeholder-text">Upload your team's Video 3 here (MP4, 1080×720)</span>
+    </div>
+    <div class="video-info">
+      <h4>Closing Debrief</h4>
+      <p>A facilitator-led summary connecting the course content to the SDGs and encouraging your Now What action step. Ends with a direct challenge: what will you do differently on Monday?</p>
+      <span class="video-duration">≈ 3 minutes</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Discussion Forum Prompt</h3>
+    <p>Before completing your reflection exercise, write a 150–200 word response to the following prompt and reply to one peer's post:</p>
+    <div class="highlight" style="margin-top:12px;">
+      <p><em>"Describe one AI tool currently used, or likely to be used, in your industry or organisation. Using the FACTS framework, identify the single biggest ethical risk it poses. What one governance measure would you recommend to address it?"</em></p>
+    </div>
+  </div>
+
+  <div class="reflection-box">
+    <h3>What, So What, Now What — Borton (1970)</h3>
+    <div class="reflection-grid">
+      <div class="reflection-item">
+        <div class="reflection-q">What?</div>
+        <div class="reflection-prompt">What happened in this course that surprised, challenged, or changed your thinking?</div>
+        <textarea class="reflect-input" placeholder="Write your response here..."></textarea>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-q">So What?</div>
+        <div class="reflection-prompt">Why does it matter? What are the implications for how you work with AI tools?</div>
+        <textarea class="reflect-input" placeholder="Write your response here..."></textarea>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-q">Now What?</div>
+        <div class="reflection-prompt">What specific action will you take — as a professional — as a result of this course?</div>
+        <textarea class="reflect-input" placeholder="Write your response here..."></textarea>
+      </div>
+    </div>
+    <p style="font-size:12px;color:rgba(250,250,248,0.35);margin-top:20px;">Reflection model: Borton, T. (1970). <em>Reach, touch and teach.</em> McGraw-Hill.</p>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo('section-4')">← Module 4</button>
+    <button class="btn-next" onclick="goTo('section-quiz')">Take the Quiz →</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="section-quiz" class="section">
+  <div class="section-header">
+    <div class="section-num">?</div>
+    <div class="section-header-text">
+      <h2>Knowledge Assessment</h2>
+      <p>15 questions across all six learning outcomes. Pass mark: 70%. One retake permitted.</p>
+    </div>
+  </div>
+
+  <div class="quiz-header">
+    <h3>Final Assessment</h3>
+    <p>Answer all 15 questions. Each question is mapped to a learning outcome. You need 11 correct answers (70%) to pass and receive your certificate.</p>
+  </div>
+
+  <form id="quizForm">
+
+    <div class="q-block">
+      <div class="q-lo">LO1 · Knowledge</div>
+      <div class="q-text">1. According to Floridi et al. (2018), which of the following is NOT one of the five core AI ethics principles?</div>
+      <label class="option-label"><input type="radio" name="q1" value="a"> Fairness</label>
+      <label class="option-label"><input type="radio" name="q1" value="b"> Transparency</label>
+      <label class="option-label"><input type="radio" name="q1" value="c"> Profitability</label>
+      <label class="option-label"><input type="radio" name="q1" value="d"> Non-maleficence</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO1 · Knowledge</div>
+      <div class="q-text">2. Which principle requires that a named person or organisation is responsible when an AI system causes harm?</div>
+      <label class="option-label"><input type="radio" name="q2" value="a"> Transparency</label>
+      <label class="option-label"><input type="radio" name="q2" value="b"> Privacy</label>
+      <label class="option-label"><input type="radio" name="q2" value="c"> Accountability</label>
+      <label class="option-label"><input type="radio" name="q2" value="d"> Non-maleficence</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO2 · Comprehension</div>
+      <div class="q-text">3. Amazon's recruiting AI was retired in 2018 primarily because it:</div>
+      <label class="option-label"><input type="radio" name="q3" value="a"> Was too slow to process applications</label>
+      <label class="option-label"><input type="radio" name="q3" value="b"> Penalised CVs containing the word "women" and downgraded graduates of all-women's colleges</label>
+      <label class="option-label"><input type="radio" name="q3" value="c"> Cost too much to maintain</label>
+      <label class="option-label"><input type="radio" name="q3" value="d"> Was replaced by a newer model</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO2 · Comprehension</div>
+      <div class="q-text">4. In the US healthcare algorithm case (Obermeyer et al., 2019), what proxy variable caused the racially biased outcome?</div>
+      <label class="option-label"><input type="radio" name="q4" value="a"> Race was directly included as an input variable</label>
+      <label class="option-label"><input type="radio" name="q4" value="b"> Historical healthcare spending was used as a proxy for health need</label>
+      <label class="option-label"><input type="radio" name="q4" value="c"> Age was used as a proxy for health risk</label>
+      <label class="option-label"><input type="radio" name="q4" value="d"> Insurance status determined care allocation</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO3 · Application</div>
+      <div class="q-text">5. In the FACTS framework, the "T" stands for Transparency. What does it specifically require of an AI system?</div>
+      <label class="option-label"><input type="radio" name="q5" value="a"> The system must be open-source</label>
+      <label class="option-label"><input type="radio" name="q5" value="b"> The system must be able to explain its decisions in a way that affected individuals can understand and challenge</label>
+      <label class="option-label"><input type="radio" name="q5" value="c"> The system's training data must be publicly available</label>
+      <label class="option-label"><input type="radio" name="q5" value="d"> The organisation must publish its AI strategy annually</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO3 · Application</div>
+      <div class="q-text">6. Your company is considering deploying an AI performance management tool that tracks employee emails and flags productivity patterns. Which FACTS letter is most immediately at risk?</div>
+      <label class="option-label"><input type="radio" name="q6" value="a"> Fairness</label>
+      <label class="option-label"><input type="radio" name="q6" value="b"> Accountability</label>
+      <label class="option-label"><input type="radio" name="q6" value="c"> Confidentiality</label>
+      <label class="option-label"><input type="radio" name="q6" value="d"> Safety</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO3 · Application</div>
+      <div class="q-text">7. Applying FACTS to the Amazon case: which principle was most directly violated by the lack of explanation given to rejected candidates?</div>
+      <label class="option-label"><input type="radio" name="q7" value="a"> Safety</label>
+      <label class="option-label"><input type="radio" name="q7" value="b"> Fairness</label>
+      <label class="option-label"><input type="radio" name="q7" value="c"> Transparency</label>
+      <label class="option-label"><input type="radio" name="q7" value="d"> Confidentiality</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO4 · Analysis</div>
+      <div class="q-text">8. Under the EU AI Act (2024), an AI system used for hiring decisions is classified as:</div>
+      <label class="option-label"><input type="radio" name="q8" value="a"> Minimal risk</label>
+      <label class="option-label"><input type="radio" name="q8" value="b"> Limited risk</label>
+      <label class="option-label"><input type="radio" name="q8" value="c"> High risk</label>
+      <label class="option-label"><input type="radio" name="q8" value="d"> Unacceptable risk</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO4 · Analysis</div>
+      <div class="q-text">9. Which of the following is NOT a requirement for high-risk AI systems under the EU AI Act?</div>
+      <label class="option-label"><input type="radio" name="q9" value="a"> Mandatory human oversight</label>
+      <label class="option-label"><input type="radio" name="q9" value="b"> Bias audits before deployment</label>
+      <label class="option-label"><input type="radio" name="q9" value="c"> Open-source publication of the algorithm</label>
+      <label class="option-label"><input type="radio" name="q9" value="d"> Accountability documentation</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO4 · Analysis</div>
+      <div class="q-text">10. Jobin et al. (2019) analysed 84 global AI ethics guidelines and found convergence on which set of themes?</div>
+      <label class="option-label"><input type="radio" name="q10" value="a"> Speed, scalability, automation, cost, and market reach</label>
+      <label class="option-label"><input type="radio" name="q10" value="b"> Transparency, justice/fairness, non-maleficence, responsibility, and privacy</label>
+      <label class="option-label"><input type="radio" name="q10" value="c"> Profitability, innovation, data volume, speed, and compliance</label>
+      <label class="option-label"><input type="radio" name="q10" value="d"> Trust, loyalty, efficiency, consistency, and growth</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO5 · Synthesis</div>
+      <div class="q-text">11. An organisation wants to use an AI credit scoring tool. Which combination of governance measures best reduces the risk of discriminatory outcomes?</div>
+      <label class="option-label"><input type="radio" name="q11" value="a"> Deploy the tool quickly and monitor for complaints afterwards</label>
+      <label class="option-label"><input type="radio" name="q11" value="b"> Conduct a bias audit before deployment, assign named accountability, and build an explanation mechanism for rejected applicants</label>
+      <label class="option-label"><input type="radio" name="q11" value="c"> Ensure the tool uses only publicly available data</label>
+      <label class="option-label"><input type="radio" name="q11" value="d"> Train the model on more data to improve accuracy</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO5 · Synthesis</div>
+      <div class="q-text">12. A consulting firm is advising a client on AI adoption. According to PwC Ireland's own research (2025), what was the primary governance concern reported by consulting professionals?</div>
+      <label class="option-label"><input type="radio" name="q12" value="a"> AI tools were too expensive to deploy</label>
+      <label class="option-label"><input type="radio" name="q12" value="b"> Only 24% of respondents described their AI governance guidelines as very clear, with over a third actively disputing the adequacy of their frameworks</label>
+      <label class="option-label"><input type="radio" name="q12" value="c"> Clients refused to use AI tools</label>
+      <label class="option-label"><input type="radio" name="q12" value="d"> Regulators blocked AI adoption</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO5 · Synthesis</div>
+      <div class="q-text">13. "Shadow AI" in a workplace context refers to:</div>
+      <label class="option-label"><input type="radio" name="q13" value="a"> AI systems that are invisible to users</label>
+      <label class="option-label"><input type="radio" name="q13" value="b"> Employees using unapproved AI tools that bypass the organisation's data policies and security controls</label>
+      <label class="option-label"><input type="radio" name="q13" value="c"> AI tools used exclusively by senior management</label>
+      <label class="option-label"><input type="radio" name="q13" value="d"> Legacy software that has not been updated</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO6 · Evaluation</div>
+      <div class="q-text">14. The Borton (1970) reflective model used in Module 5 consists of which three questions?</div>
+      <label class="option-label"><input type="radio" name="q14" value="a"> Why, How, When</label>
+      <label class="option-label"><input type="radio" name="q14" value="b"> Plan, Do, Review</label>
+      <label class="option-label"><input type="radio" name="q14" value="c"> What, So What, Now What</label>
+      <label class="option-label"><input type="radio" name="q14" value="d"> Describe, Analyse, Conclude</label>
+    </div>
+
+    <div class="q-block">
+      <div class="q-lo">LO6 · Evaluation</div>
+      <div class="q-text">15. Which statement best reflects the ECCSR framework's purpose in this course?</div>
+      <label class="option-label"><input type="radio" name="q15" value="a"> It provides a technology selection checklist for AI procurement</label>
+      <label class="option-label"><input type="radio" name="q15" value="b"> It ensures that projects and learning experiences are structured around engagement, connection, challenge, sharing, and reflection — aligning them with societal values and ethical imperatives</label>
+      <label class="option-label"><input type="radio" name="q15" value="c"> It is a project management certification framework</label>
+      <label class="option-label"><input type="radio" name="q15" value="d"> It replaces the need for academic referencing</label>
+    </div>
+
+    <button type="button" class="quiz-submit" onclick="submitQuiz()">Submit Assessment</button>
+  </form>
+
+  <div id="quiz-result">
+    <div class="result-score" id="scoreDisplay"></div>
+    <h3 id="resultTitle"></h3>
+    <p id="resultMsg"></p>
+    <button class="cert-btn" id="certBtn" onclick="generateCert()" style="display:none;">⭐ Download Certificate</button>
+  </div>
+
+  <!-- REFERENCES -->
+  <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">
+    <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:20px;">References</h3>
+    <ul class="ref-list">
+      <li>Borton, T. (1970). <em>Reach, touch and teach.</em> McGraw-Hill.</li>
+      <li>Dastin, J. (2018). Amazon scraps secret AI recruiting tool that showed bias against women. <em>Reuters.</em> https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G</li>
+      <li>European Parliament. (2024). <em>Regulation (EU) 2024/1689 on Artificial Intelligence (AI Act).</em> Official Journal of the European Union. https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689</li>
+      <li>Floridi, L., Cowls, J., Beltrametti, M., Chatila, R., Chazerand, P., Dignum, V., Luetge, C., Madelin, R., Pagallo, U., Rossi, F., Schafer, B., Valcke, P. &amp; Vayena, E. (2018). AI4People — An ethical framework for a good AI society. <em>Minds and Machines, 28</em>(4), 689–707. https://doi.org/10.1007/s11023-018-9482-5</li>
+      <li>Houghton, J. (2022). <em>Project Management Made Easy: The ECCSR Approach.</em> Amazon. https://amzn.to/3HrGmbh</li>
+      <li>IBM. (2024). <em>Global AI adoption index 2024.</em> IBM Institute for Business Value. https://www.ibm.com/thought-leadership/institute-business-value/en-us/report/ai-adoption-index</li>
+      <li>IEEE. (2019). <em>Ethically aligned design</em> (1st ed.). IEEE Standards Association. https://standards.ieee.org/industry-connections/ec/autonomous-systems/</li>
+      <li>Jobin, A., Ienca, M. &amp; Vayena, E. (2019). The global landscape of AI ethics guidelines. <em>Nature Machine Intelligence, 1</em>(9), 389–399. https://doi.org/10.1038/s42256-019-0088-2</li>
+      <li>Obermeyer, Z., Powers, B., Vogeli, C. &amp; Mullainathan, S. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. <em>Science, 366</em>(6464), 447–453. https://doi.org/10.1126/science.aax2342</li>
+      <li>O'Neil, C. (2016). <em>Weapons of math destruction.</em> Crown Publishers.</li>
+      <li>PwC Ireland. (2025). <em>AI agent survey 2025.</em> https://www.pwc.ie/media-centre/press-releases/2025/ai-agent-survey-2025.html</li>
+    </ul>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo('section-5')">← Module 5</button>
+  </div>
+</div>
+
+<script>
+const ANSWERS = { q1:'c', q2:'c', q3:'b', q4:'b', q5:'b', q6:'c', q7:'c', q8:'c', q9:'c', q10:'b', q11:'b', q12:'b', q13:'b', q14:'c', q15:'b' };
+const SECTIONS = ['hero','section-1','section-2','section-3','section-4','section-5','section-quiz'];
+let currentIdx = 0;
+
+function goTo(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  currentIdx = SECTIONS.indexOf(id);
+  updateProgress();
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const pct = Math.round((currentIdx / (SECTIONS.length - 1)) * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progPct').textContent = pct + '%';
+}
+
+function updateNav() {
+  document.querySelectorAll('.pill').forEach((p, i) => {
+    p.classList.toggle('active', i === currentIdx);
+  });
+}
+
+function submitQuiz() {
+  let correct = 0;
+  const total = 15;
+  Object.keys(ANSWERS).forEach(q => {
+    const sel = document.querySelector('input[name="'+q+'"]:checked');
+    if (sel && sel.value === ANSWERS[q]) correct++;
+  });
+  const pct = Math.round((correct / total) * 100);
+  const passed = pct >= 70;
+  const result = document.getElementById('quiz-result');
+  result.style.display = 'block';
+  result.className = passed ? 'pass' : 'fail';
+  document.getElementById('scoreDisplay').textContent = pct + '%';
+  document.getElementById('scoreDisplay').className = 'result-score ' + (passed ? 'pass-score' : 'fail-score');
+  document.getElementById('resultTitle').textContent = passed ? 'Congratulations — You Passed!' : 'Not Quite — Please Retry';
+  document.getElementById('resultMsg').textContent = passed
+    ? 'You answered ' + correct + ' of ' + total + ' questions correctly. You have demonstrated a strong understanding of ethical AI principles, the FACTS framework, and AI governance.'
+    : 'You answered ' + correct + ' of ' + total + ' questions correctly. A score of 70% or above is required to pass. Please review the modules and try again.';
+  document.getElementById('certBtn').style.display = passed ? 'inline-flex' : 'none';
+  result.scrollIntoView({ behavior: 'smooth' });
+}
+
+function generateCert() {
+  const name = prompt('Enter your full name for the certificate:') || 'Course Participant';
+  const date = new Date().toLocaleDateString('en-IE', { year:'numeric', month:'long', day:'numeric' });
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head><title>Certificate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;background:#faf8f4;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'DM Sans',sans-serif;}
+    .cert{background:#fff;border:2px solid #b5893a;padding:60px 80px;max-width:700px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.1);}
+    h1{font-family:'Playfair Display',serif;font-size:42px;color:#0f172a;margin-bottom:8px;}
+    .sub{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#b5893a;margin-bottom:40px;}
+    .awarded{font-size:14px;color:#64748b;margin-bottom:16px;}
+    .name{font-family:'Playfair Display',serif;font-size:32px;color:#0f172a;margin-bottom:8px;}
+    .course{font-size:15px;color:#334155;margin-bottom:32px;}
+    .date{font-size:13px;color:#94a3b8;}
+    .sdgs{margin-top:24px;font-size:12px;color:#b5893a;letter-spacing:1px;}
+  </style></head><body><div class="cert">
+  <div class="sub">Certificate of Completion</div>
+  <h1>Ethical Use of AI<br>in the Workplace</h1>
+  <div class="awarded">This certifies that</div>
+  <div class="name">${name}</div>
+  <div class="course">has successfully completed this corporate learning module<br>with a passing score of 70% or above</div>
+  <div class="date">Completed: ${date}</div>
+  <div class="sdgs">Aligned with UN SDG 8 · SDG 9 · ECCSR Framework · EU AI Act 2024</div>
+  </div></body></html>`);
+}
+</script>
+</body>
+</html>
