@@ -764,11 +764,11 @@ textarea.reflect-input:focus { outline:none; border-color:var(--gold); }
   </div>
 
   <!-- VIDEO 1 -->
- <div class="video-block">
-    <div class="video-thumb">
-      <div class="play-btn"></div>
-      <span class="video-placeholder-text">Upload your team's Video 1 here (MP4, 1080×720)</span>
-    </div>
+ <div class="video-thumb">
+    <video controls style="width:100%;height:100%;object-fit:cover;position:relative;z-index:1;">
+      <source src="video1.mp4" type="video/mp4">
+    </video>
+</div>
     <div class="video-info">
       <h4>The Algorithm Decided</h4>
       <p>A dramatised scenario: an AI hiring tool rejects a qualified candidate. No explanation is given. Watch and ask yourself — was this fair?</p>
