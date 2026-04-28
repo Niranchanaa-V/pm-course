@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -764,9 +764,9 @@ textarea.reflect-input:focus { outline:none; border-color:var(--gold); }
   </div>
 
   <!-- VIDEO 1 -->
- <div class="video-block">
-    <div class="video-thumb">
-      <video controls style="width:100%;height:100%;max-height:200px;">
+  <div class="video-block">
+    <div class="video-thumb" style="height: 400px;">
+      <video controls style="width:100%;height:400px;position:relative;z-index:10;object-fit:cover;">
   <source src="video1.mp4" type="video/mp4">
 </video>
     </div>
@@ -918,8 +918,9 @@ textarea.reflect-input:focus { outline:none; border-color:var(--gold); }
   <!-- VIDEO 2 -->
   <div class="video-block">
     <div class="video-thumb">
-      <div class="play-btn"></div>
-      <span class="video-placeholder-text">Upload your team's Video 2 here (MP4, 1080×720)</span>
+      <video controls style="width:100%;max-height:200px;position:relative;z-index:10;object-fit:contain;background:#000;">
+  <source src="video2.mp4" type="video/mp4">
+</video>
     </div>
     <div class="video-info">
       <h4>Thinking Like a Consultant: Applying FACTS</h4>
@@ -1058,8 +1059,8 @@ textarea.reflect-input:focus { outline:none; border-color:var(--gold); }
   <!-- VIDEO 3 -->
   <div class="video-block">
     <div class="video-thumb">
-      <div class="play-btn"></div>
-      <span class="video-placeholder-text">Upload your team's Video 3 here (MP4, 1080×720)</span>
+      <video controls style="width:100%;max-height:200px;position:relative;z-index:10;object-fit:cover">
+  <source src="video3.mp4" type="video/mp4">
     </div>
     <div class="video-info">
       <h4>Closing Debrief</h4>
